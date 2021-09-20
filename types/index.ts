@@ -4,7 +4,7 @@ export interface mysqlResponse {
     sqlMessage: string
 }
 export interface users {
-    id: string,
+    id: number,
     name: string,
     email: string,
     password: string,
@@ -14,7 +14,7 @@ export interface orders {
     id: string,
     drink_type: string,
     food_type: string,
-    price: Number,
-    created_at: Date,
-    updated_at: Date
+    price: number,
+    created_at?: Date,
+    updated_at?: Date
 }
