@@ -24,11 +24,11 @@ router.get('/:id', async (req, res) => {
 });
 router.post('/', async (req, res) => {
     const id = uuidv4();
-    const { drink_type, food_type, price } = req.body;
+    const { drink_type, food_type, price, first_name } = req.body;
     if (!drink_type || !price) {
         res.status(400).json({ message: 'Please fill out drink field' });
     }
-    const newOrderObject: orders = { id, drink_type, food_type, price };
+    const newOrderObject: orders = { id, drink_type, food_type, price, first_name };
     try {
         const post_order = await db_orders.post_order(newOrderObject);
         res.status(201).json({ message: 'Order created', id });
@@ -38,11 +38,11 @@ router.post('/', async (req, res) => {
 });
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { drink_type, food_type, price } = req.body;
+    const { drink_type, food_type, price, first_name } = req.body;
     if (!drink_type || !price) {
         res.status(400).json({ message: 'Please fill out drink field' });
     }
-    const updatedOrder: orders = { id, drink_type, food_type, price };
+    const updatedOrder: orders = { id, drink_type, food_type, price, first_name };
     try {
         const edit_order = await db_orders.edit_order(updatedOrder, id);
         res.status(201).json(updatedOrder);

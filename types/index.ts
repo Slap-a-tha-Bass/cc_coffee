@@ -16,5 +16,7 @@ export interface orders {
     food_type: string,
     price: number,
     created_at?: Date,
-    updated_at?: Date
+    updated_at?: Date,
+    isPreview?: boolean,
+    first_name: string
 }
