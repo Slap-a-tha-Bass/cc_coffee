@@ -25,9 +25,9 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const id = uuidv4();
     const { drink_type, food_type, price, first_name } = req.body;
-    if (!drink_type || !price) {
-        res.status(400).json({ message: 'Please fill out drink field' });
-    }
+    // if (!drink_type || !price) {
+    //     res.status(400).json({ message: 'Please fill out drink field' });
+    // }
     const newOrderObject: orders = { id, drink_type, food_type, price, first_name };
     try {
         const post_order = await db_orders.post_order(newOrderObject);
