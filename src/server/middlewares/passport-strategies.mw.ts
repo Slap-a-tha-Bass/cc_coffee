@@ -4,7 +4,7 @@ import * as PassportJWT from 'passport-jwt';
 import * as PassportLocal from 'passport-local';
 import { users } from "../../../types";
 import db_users from '../db/queries/users';
-import { compareHash } from '../../../utils/passwords';
+import { compareHash } from '../utils/passwords';
 import { jwtConfig } from "../config";
 
 export const configurePassport = (app: Application) => {

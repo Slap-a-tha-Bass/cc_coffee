@@ -19,6 +19,8 @@ export interface orders {
     id: string,
     drink_type: string,
     food_type: string,
+    drink_id: string,
+    food_id: string,
     price: number,
     created_at?: Date,
     updated_at?: Date,

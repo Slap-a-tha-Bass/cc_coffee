@@ -24,13 +24,12 @@ router.get('/:id', async (req, res) => {
 });
 router.post('/', async (req, res) => {
     const id = uuidv4();
-    const { drink_type, food_type, price, first_name } = req.body;
-    // if (!drink_type || !price) {
-    //     res.status(400).json({ message: 'Please fill out drink field' });
-    // }
-    const newOrderObject: orders = { id, drink_type, food_type, price, first_name };
+    const { drink_id, food_id, first_name } = req.body;
     try {
-        const post_order = await db_orders.post_order(newOrderObject);
+        const [whole_food_item] = await db_orders.get_1_food(food_id);
+        const [whole_drink_item] = await db_orders.get_1_drink(drink_id);
+        
+        const post_order = await db_orders.post_order(id, first_name, whole_food_item.price + whole_drink_item.price);
         res.status(201).json({ message: 'Order created', id });
     } catch (error) {
         res.status(500).json({ message: 'Problem creating order', error: error.message });
@@ -38,11 +37,11 @@ router.post('/', async (req, res) => {
 });
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { drink_type, food_type, price, first_name } = req.body;
+    const { drink_type, food_type, drink_id, food_id, price, first_name } = req.body;
     if (!drink_type || !price) {
         res.status(400).json({ message: 'Please fill out drink field' });
     }
-    const updatedOrder: orders = { id, drink_type, food_type, price, first_name };
+    const updatedOrder: orders = { id, drink_type, food_type, drink_id, food_id, price, first_name };
     try {
         const edit_order = await db_orders.edit_order(updatedOrder, id);
         res.status(201).json(updatedOrder);

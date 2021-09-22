@@ -1,6 +1,6 @@
 export async function apiService<T = any>(uri: string, method: string = 'GET', data?: {}) {
 
-    const TOKEN = localStorage.getItem(token_key);
+    const TOKEN = localStorage.getItem('token');
 
     const headers: HeadersInit = {
         'Content-Type': 'application/json'
@@ -54,4 +54,3 @@ interface IFetchOptions {
     headers?: HeadersInit,
     body?: string
 }
-export const token_key = 'token';

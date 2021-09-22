@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { orders } from '../../../types';
-import { apiService } from '../../../utils/api-service';
+import { apiService } from '../utils/api-service';
 import OrderCard from '../components/OrderCard';
 
 const Orders = () => {
