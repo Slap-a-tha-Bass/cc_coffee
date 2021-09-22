@@ -10,32 +10,37 @@ const Home = () => {
     const [foods, setFoodType] = useState<orders[]>([]);
     const [drinks, setDrinkType] = useState<orders[]>([]);
 
+    const [food_type, setFood] = useState<orders['food_type']>();
+    const [drink_type, setDrink] = useState<orders['drink_type']>();
+
     const [food_id, setFoodid] = useState<food['id']>();
     const [drink_id, setDrinkid] = useState<drinks['id']>();
 
     useEffect(() => {
         apiService('/api/drinks')
             .then(data => {
-                setDrinkType(data)
+                setDrinkType(data),
+                setDrink(data)
             })
     }, []);
     useEffect(() => {
         apiService('api/food')
             .then(data => {
-                setFoodType(data)
+                setFoodType(data),
+                setFood(data)
             })
     }, []);
 
     const handleSelectDrink = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setDrinkid(e.target.value);
+        setDrinkid(Number(e.target.value));
     }
     const handleSelectFood = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setFoodid(e.target.value);
+        setFoodid(Number(e.target.value));
     }
     const handleSubmitOrder = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         apiService('/api/orders', 'POST',
-            { drink_id, food_id, first_name })
+            { drink_id, food_id, first_name, drink_type, food_type })
             .then(data => {
                 history.push('/orders')
                 console.log(data)

@@ -24,18 +24,18 @@ router.get('/:id', async (req, res) => {
 });
 router.post('/', async (req, res) => {
     const id = uuidv4();
-    const { drink_id, food_id, first_name } = req.body;
+    const { drink_id, food_id, first_name, food_type, drink_type } = req.body;
     try {
-        const [whole_food_item] = await db_orders.get_1_food(food_id);
-        const [whole_drink_item] = await db_orders.get_1_drink(drink_id);
-        
-        const post_order = await db_orders.post_order(id, first_name, whole_food_item.price + whole_drink_item.price);
+        const [whole_food_item] = await db_orders.get_1_food(food_id, food_type);
+        const [whole_drink_item] = await db_orders.get_1_drink(drink_id, drink_type);
+        const newOrderObject = { id, first_name, price: Number(whole_drink_item.price) + Number(whole_food_item.price), drink_type: whole_drink_item.drink_type, food_type: whole_food_item.food_type, drink_id, food_id };
+        const post_order = await db_orders.post_order(newOrderObject);
         res.status(201).json({ message: 'Order created', id });
     } catch (error) {
         res.status(500).json({ message: 'Problem creating order', error: error.message });
     }
 });
-router.put('/:id', async (req, res) => {
+router.put('/:id/edit', async (req, res) => {
     const { id } = req.params;
     const { drink_type, food_type, drink_id, food_id, price, first_name } = req.body;
     if (!drink_type || !price) {
@@ -49,7 +49,7 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ message: 'Problem editing order', error: error.message });
     }
 });
-router.delete('/:id', async (req, res) => {
+router.delete('/:id/delete', async (req, res) => {
     const { id } = req.params;
     try {
         const delete_order = await db_orders.delete_order(id);

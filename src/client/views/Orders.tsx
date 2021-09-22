@@ -15,7 +15,7 @@ const Orders = () => {
     return (
         <div>
             {orders.map((order => (
-                <OrderCard {...order} key={order.id} isPreview />
+                <OrderCard {...order} key={order.id} />
             )))}
         </div>
     )
