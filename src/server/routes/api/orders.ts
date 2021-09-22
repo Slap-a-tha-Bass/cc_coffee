@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
     try {
         const [whole_food_item] = await db_orders.get_1_food(food_id, food_type);
         const [whole_drink_item] = await db_orders.get_1_drink(drink_id, drink_type);
-        const newOrderObject = { id, first_name, price: Number(whole_drink_item.price) + Number(whole_food_item.price), drink_type: whole_drink_item.drink_type, food_type: whole_food_item.food_type, drink_id, food_id };
+        const newOrderObject = { id, first_name, price: Number(whole_drink_item.price) + Number(whole_food_item.price), drink_id, food_id, food_type: whole_food_item.food_type, drink_type: whole_drink_item.drink_type };
         const post_order = await db_orders.post_order(newOrderObject);
         res.status(201).json({ message: 'Order created', id });
     } catch (error) {

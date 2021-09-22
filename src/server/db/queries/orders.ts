@@ -4,7 +4,7 @@ import { drinks, food, mysqlResponse, orders } from "../../../../types";
 
 const get_orders = () => Query<orders[]>('SELECT * FROM Orders ORDER BY created_at ASC');
 const get_1_order = (id: string) => Query<orders[]>('SELECT * FROM Orders WHERE id = ?', [id]);
-const post_order = (newOrderObject: {id: string, first_name: string, price: number,  drink_id: number, food_id: number, drink_type: string, food_type: string } ) => Query('INSERT INTO Orders SET ?', [newOrderObject]);
+const post_order = (newOrderObject: {id: string, first_name: string, price: number,  drink_id: number, food_id: number, food_type: string, drink_type: string } ) => Query('INSERT INTO Orders SET ?', [newOrderObject]);
 const edit_order = (updatedOrder: orders, id: string) => Query('UPDATE Orders SET ? WHERE id=?', [updatedOrder, id]);
 const delete_order = (id: string) => Query('DELETE FROM Orders WHERE id = ?', [id]);
 

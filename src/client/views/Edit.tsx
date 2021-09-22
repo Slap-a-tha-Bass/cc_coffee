@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { food, orders, drinks } from '../../../types';
 import { apiService } from '../utils/api-service';
 
 const Edit = () => {
     const history = useHistory();
-    
-    const [first_name, setFirstName] = useState<orders['first_name']>('');
+    const { id } = useParams<{ id: string }>();
+    const [first_name, setFirstName] = useState<orders['first_name']>(null);
     const [foods, setFoodType] = useState<orders[]>([]);
     const [drinks, setDrinkType] = useState<orders[]>([]);
     const [order_id, setOrderId] = useState<orders['id']>();
@@ -32,9 +32,11 @@ const Edit = () => {
             })
     }, []);
     useEffect(() => {
-        apiService('/api/orders')
+        apiService(`/api/orders/${id}`)
             .then(data => {
-                setFirstName(data)
+                setFirstName(data),
+                setDrinkType(data),
+                setFoodType(data)
             })
     }, []);
     const handleSelectDrink = (e: React.ChangeEvent<HTMLSelectElement>) => {

@@ -25,8 +25,8 @@ return (
         </div>
         <h4 className="card-text text-center mb-2">${props.price}.00</h4>
         <div className="d-flex justify-content-between m-3">
-            <Link className="btn btn-outline-primary" to={`/${props.id}/edit`}>Edit</Link>
-            <button className="btn btn-primary" onClick={handleDeleteClick} >Delete</button>
+            <Link className="btn btn-warning" to={`/${props.id}/edit`}>Edit</Link>
+            <button className="btn btn-danger" onClick={handleDeleteClick} >Delete</button>
         </div>
     </div>
 )
