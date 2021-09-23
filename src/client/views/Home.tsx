@@ -39,6 +39,11 @@ const Home = () => {
     }
     const handleSubmitOrder = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        const badVals = [0,1,2,3,4];
+        if(!badVals.includes(food_id) || !badVals.includes(drink_id) || !first_name) {
+            alert('Please fill out all required fields');
+            return;
+        }
         apiService('/api/orders', 'POST',
             { drink_id, food_id, first_name, drink_type, food_type })
             .then(data => {

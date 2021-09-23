@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Private from './components/Private';
 import Edit from './views/Edit';
 import Home from './views/Home';
+import Invalid from './views/Invalid';
+import Login from './views/Login';
 import Orders from './views/Orders';
+import Profile from './views/Profile';
 
 /* HOOK REACT EXAMPLE */
 const App = (props: AppProps) => {
@@ -20,6 +24,15 @@ const App = (props: AppProps) => {
 				<Route exact path="/:id/edit">
 					<Edit />
 				</Route>
+				<Route exact path="/login">
+					<Login />
+				</Route>
+				<Route exact path="/invalid">
+					<Invalid />
+				</Route>
+				<Private exact path="/profile">
+					<Profile />
+				</Private>
 			</Switch>
 		</BrowserRouter>
 	)

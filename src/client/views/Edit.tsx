@@ -6,48 +6,54 @@ import { apiService } from '../utils/api-service';
 const Edit = () => {
     const history = useHistory();
     const { id } = useParams<{ id: string }>();
-    const [first_name, setFirstName] = useState<orders['first_name']>(null);
-    const [foods, setFoodType] = useState<orders[]>([]);
-    const [drinks, setDrinkType] = useState<orders[]>([]);
-    const [order_id, setOrderId] = useState<orders['id']>();
+
+    const [first_name, setNameEdit] = useState<orders['first_name']>(null);
+    const [food_id, setFoodEdit] = useState<orders['food_id']>(null);
+    const [drink_id, setDrinkEdit] = useState<orders['drink_id']>(null);
 
     const [food_type, setFood] = useState<orders['food_type']>();
     const [drink_type, setDrink] = useState<orders['drink_type']>();
 
-    const [food_id, setFoodid] = useState<food['id']>();
-    const [drink_id, setDrinkid] = useState<drinks['id']>();
+    const [foods, setFoodType] = useState<orders[]>([]);
+    const [drinks, setDrinkType] = useState<orders[]>([]);
+
 
     useEffect(() => {
         apiService('/api/drinks')
             .then(data => {
-                setDrinkType(data),
-                setDrink(data)
+                setDrink(data),
+                setDrinkType(data)
             })
     }, []);
     useEffect(() => {
         apiService('/api/food')
             .then(data => {
-                setFoodType(data),
-                setFood(data)
+                setFood(data),
+                setFoodType(data)
             })
     }, []);
     useEffect(() => {
         apiService(`/api/orders/${id}`)
             .then(data => {
-                setFirstName(data),
-                setDrinkType(data),
-                setFoodType(data)
+                setNameEdit(data.first_name),
+                setDrinkEdit(data),
+                setFoodEdit(data)
             })
     }, []);
     const handleSelectDrink = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setDrinkid(Number(e.target.value));
+        setDrinkEdit(Number(e.target.value));
     }
     const handleSelectFood = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setFoodid(Number(e.target.value));
+        setFoodEdit(Number(e.target.value));
     }
     const handleConfirmEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        apiService(`/api/orders/${order_id}/edit`, 'PUT',
+        const badVals = [0,1,2,3,4];
+        if(!badVals.includes(food_id) || !badVals.includes(drink_id) || !first_name) {
+            alert('Please fill out all required fields');
+            return;
+        }
+        apiService(`/api/orders/${id}/edit`, 'PUT',
             { drink_id, food_id, first_name, drink_type, food_type })
             .then(data => {
                 history.push('/orders')
@@ -62,7 +68,7 @@ const Edit = () => {
                     <h2 className="text-center mt-2 text-primary">Welcome to C^2 Coffee!</h2>
                     <form className="form-group">
                         <label className="my-2">First Name</label>
-                        <input value={first_name} onChange={e => setFirstName(e.target.value)} type="text" className="form-control" />
+                        <input value={first_name || ''} onChange={e => setNameEdit(e.target.value)} type="text" className="form-control" />
                         <select onChange={handleSelectDrink} className="form-select my-3" aria-label="Default select sample">
                             <option value="0">Choose your drink!</option>
                             {drinks.map((drink) => (

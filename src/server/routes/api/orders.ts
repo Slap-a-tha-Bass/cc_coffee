@@ -37,12 +37,11 @@ router.post('/', async (req, res) => {
 });
 router.put('/:id/edit', async (req, res) => {
     const { id } = req.params;
-    const { drink_type, food_type, drink_id, food_id, price, first_name } = req.body;
-    if (!drink_type || !price) {
-        res.status(400).json({ message: 'Please fill out drink field' });
-    }
-    const updatedOrder: orders = { id, drink_type, food_type, drink_id, food_id, price, first_name };
+    const { drink_type, food_type, drink_id, food_id, first_name } = req.body;
     try {
+        const [whole_food_item] = await db_orders.get_1_food(food_id, food_type);
+        const [whole_drink_item] = await db_orders.get_1_drink(drink_id, drink_type);
+        const updatedOrder: orders = { id, drink_type: whole_drink_item.drink_type, food_type: whole_food_item.food_type, drink_id, food_id, price: Number(whole_drink_item.price) + Number(whole_food_item.price), first_name };
         const edit_order = await db_orders.edit_order(updatedOrder, id);
         res.status(201).json(updatedOrder);
     } catch (error) {
