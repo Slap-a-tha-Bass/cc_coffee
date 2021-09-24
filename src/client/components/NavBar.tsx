@@ -12,6 +12,7 @@ const NavBar = () => {
             <div>
                 <NavLink className="text-decoration-none" to="/login">Login</NavLink>
                 <NavLink className="text-decoration-none mx-3 px-3" to="/profile">Profile</NavLink>
+                <NavLink className="text-decoration-none px-2" to="/register">Register</NavLink>
             </div>
         </div>
     )

@@ -8,6 +8,7 @@ import Invalid from './views/Invalid';
 import Login from './views/Login';
 import Orders from './views/Orders';
 import Profile from './views/Profile';
+import Register from './views/Register';
 
 /* HOOK REACT EXAMPLE */
 const App = (props: AppProps) => {
@@ -33,6 +34,9 @@ const App = (props: AppProps) => {
 				<Private exact path="/profile">
 					<Profile />
 				</Private>
+				<Route exact path="/register">
+					<Register />
+				</Route>
 			</Switch>
 		</BrowserRouter>
 	)

@@ -6,6 +6,7 @@ const Private = ({ children, ...rest }: PrivateProps) => {
     const TOKEN = localStorage.getItem('token');
 
     if (!TOKEN) {
+        alert('Please login to continue');
         return <Redirect to="/login" />
     } else {
         return <Route {...rest}>{children}</Route>

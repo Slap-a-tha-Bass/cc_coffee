@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import { ReqUsers } from '../../../../types';
-import db_users from '../../db/queries/users';
+
 
 const router = express.Router();
 
