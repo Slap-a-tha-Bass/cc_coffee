@@ -14,3 +14,4 @@ router.get('/', passport.authenticate('jwt'), async (req: ReqUsers, res) => {
 })
 
 export default router;
+

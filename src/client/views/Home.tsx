@@ -20,14 +20,14 @@ const Home = () => {
         apiService('/api/drinks')
             .then(data => {
                 setDrinkType(data),
-                setDrink(data)
+                    setDrink(data)
             })
     }, []);
     useEffect(() => {
         apiService('api/food')
             .then(data => {
                 setFoodType(data),
-                setFood(data)
+                    setFood(data)
             })
     }, []);
 
@@ -39,8 +39,8 @@ const Home = () => {
     }
     const handleSubmitOrder = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const badVals = [0,1,2,3,4];
-        if(!badVals.includes(food_id) || !badVals.includes(drink_id) || !first_name) {
+        const badVals = [0, 1, 2, 3, 4];
+        if (!badVals.includes(food_id) || !badVals.includes(drink_id) || !first_name) {
             alert('Please fill out all required fields');
             return;
         }
@@ -60,15 +60,17 @@ const Home = () => {
                         <form className="form-group">
                             <label className="my-2">First Name</label>
                             <input value={first_name} onChange={e => setFirstName(e.target.value)} type="text" className="form-control" />
-                            <select onChange={handleSelectDrink} className="form-select my-3" aria-label="Default select sample">
-                                <option value="0">Choose your drink!</option>
-                                {drinks.map((drink) => (
-                                    <option key={drink.id} value={drink.id}>
-                                        {drink.drink_type} - ${drink.price}
-                                    </option>
-                                ))}
-                            </select>
-                            <select onChange={handleSelectFood} className="form-select my-3" aria-label="Default select sample">
+                            <div className="d-flex justify-content-around">
+                                <select onChange={handleSelectDrink} className="form-select my-3" aria-label="Default select sample">
+                                    <option value="0">Choose your drink!</option>
+                                    {drinks.map((drink) => (
+                                            <option key={drink.id} value={drink.id}>
+                                                {drink.drink_type} - ${drink.price}
+                                            </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <select onChange={handleSelectFood} className="form-select mb-3" aria-label="Default select sample">
                                 <option value="0">Choose your food!</option>
                                 {foods.map((food) => (
                                     <option key={food.id} value={food.id}>
